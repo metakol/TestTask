@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="566.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.metakol.testtask.controllers.MainViewController">
+   <children>
+      <Button layoutX="319.0" layoutY="92.0" mnemonicParsing="false" onMouseClicked="#goChangeEmployeesClick" prefHeight="37.0" prefWidth="206.0" text="Изменение работников" />
+      <Button layoutX="319.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#goChangeDepartmentsClick" prefHeight="37.0" prefWidth="206.0" text="Изменение отделов" />
+      <Button layoutX="319.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#goChangePositionsClick" text="Изменение должнностей" />
+      <Separator layoutX="280.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TextField id="field" fx:id="field" layoutX="319.0" layoutY="305.0" onKeyTyped="#onType" prefHeight="37.0" prefWidth="206.0" />
+   </children>
+</AnchorPane>
