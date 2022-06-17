@@ -4,7 +4,6 @@ import com.github.metakol.testtask.DBHandler.DBHandler;
 import com.github.metakol.testtask.Launch;
 import com.github.metakol.testtask.helpers.Scenes;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +16,7 @@ public class MainViewController {
 
     @FXML
     void goChangeDepartmentsClick(MouseEvent event) {
-
+        Scenes.sceneChange(event,Launch.class.getResource("scenes/change-departments.fxml"));
     }
 
     @FXML
@@ -38,7 +37,7 @@ public class MainViewController {
         try (DBHandler handler = new DBHandler();
              Statement statement = handler.getStatement();
         ) {
-            String sql = "SELECT * FROM positions WHERE title LIKE '%"+field.getText().trim()+"%'";
+            String sql = "SELECT * FROM positions WHERE title LIKE '%" + field.getText().trim() + "%'";
             System.out.println(sql);
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 while (resultSet.next()) {

@@ -2,17 +2,17 @@ package com.github.metakol.testtask.entity;
 
 public class Position {
     private int ID;
-    private String title;
+    private String positionName;
     private int salary;
 
-    public Position(int ID, String title, int salary) {
+    public Position(int ID, String positionName, int salary) {
         this.ID = ID;
-        this.title = title;
+        this.positionName = positionName;
         this.salary = salary;
     }
 
-    public Position(String title, int salary) {
-        this.title = title;
+    public Position(String positionName, int salary) {
+        this.positionName = positionName;
         this.salary = salary;
     }
 
@@ -24,12 +24,12 @@ public class Position {
         this.ID = ID;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPositionName() {
+        return positionName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
     public int getSalary() {
