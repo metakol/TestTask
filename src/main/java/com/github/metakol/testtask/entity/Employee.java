@@ -3,24 +3,24 @@ package com.github.metakol.testtask.entity;
 public class Employee {
     private int ID;
     private String FIO;
-    private int IDDepartment;
-    private int IDPosition;
+    private String departmentName;
+    private String positionName;
     private String phoneNumber;
     private String passport;
 
-    public Employee(int ID, String FIO, int IDDepartment, int IDPosition, String phoneNumber, String passport) {
+    public Employee(int ID, String FIO, String departmentName, String positionName, String phoneNumber, String passport) {
         this.ID = ID;
         this.FIO = FIO;
-        this.IDDepartment = IDDepartment;
-        this.IDPosition = IDPosition;
+        this.departmentName = departmentName;
+        this.positionName = positionName;
         this.phoneNumber = phoneNumber;
         this.passport = passport;
     }
 
-    public Employee(String FIO, int IDDepartment, int IDPosition, String phoneNumber, String passport) {
+    public Employee(String FIO, String departmentName, String positionName, String phoneNumber, String passport) {
         this.FIO = FIO;
-        this.IDDepartment = IDDepartment;
-        this.IDPosition = IDPosition;
+        this.departmentName = departmentName;
+        this.positionName = positionName;
         this.phoneNumber = phoneNumber;
         this.passport = passport;
     }
@@ -41,20 +41,20 @@ public class Employee {
         this.FIO = FIO;
     }
 
-    public int getIDDepartment() {
-        return IDDepartment;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setIDDepartment(int IDDepartment) {
-        this.IDDepartment = IDDepartment;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
-    public int getIDPosition() {
-        return IDPosition;
+    public String getPositionName() {
+        return positionName;
     }
 
-    public void setIDPosition(int IDPosition) {
-        this.IDPosition = IDPosition;
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
     public String getPhoneNumber() {

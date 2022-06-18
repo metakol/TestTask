@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="566.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.metakol.testtask.controllers.MainViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="656.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.metakol.testtask.controllers.MainViewController">
    <children>
-      <Button layoutX="319.0" layoutY="92.0" mnemonicParsing="false" onMouseClicked="#goChangeEmployeesClick" prefHeight="37.0" prefWidth="206.0" text="Изменение работников" />
-      <Button layoutX="319.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#goChangeDepartmentsClick" prefHeight="37.0" prefWidth="206.0" text="Изменение отделов" />
-      <Button layoutX="319.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#goChangePositionsClick" text="Изменение должнностей" />
+      <Button layoutX="319.0" layoutY="92.0" mnemonicParsing="false" onMouseClicked="#goChangeEmployeesClick" prefHeight="38.0" prefWidth="286.0" text="Изменение работников" />
+      <Button layoutX="319.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#goChangeDepartmentsClick" prefHeight="38.0" prefWidth="286.0" text="Изменение отделов" />
+      <Button layoutX="319.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#goChangePositionsClick" prefHeight="38.0" prefWidth="286.0" text="Изменение должнностей" />
       <Separator layoutX="280.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="319.0" layoutY="271.0" mnemonicParsing="false" onMouseClicked="#goChangeStaffingTableClick" prefHeight="27.0" prefWidth="286.0" text="Изменение штатного расписания" wrapText="true" />
    </children>
 </AnchorPane>

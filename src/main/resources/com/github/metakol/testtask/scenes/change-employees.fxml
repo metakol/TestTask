@@ -45,7 +45,7 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TextField fx:id="fioFieldForChange" layoutX="19.0" layoutY="19.0" prefHeight="38.0" prefWidth="306.0" promptText="ФИО" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="373.0" AnchorPane.topAnchor="30.0" />
-                        <TextField fx:id="personalFieldPhoneForChange" layoutX="324.4" layoutY="30.0" prefHeight="38.0" prefWidth="174.0" promptText="Личный телефон" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="30.0" />
+                        <TextField fx:id="personalPhoneFieldForChange" layoutX="324.4" layoutY="30.0" prefHeight="38.0" prefWidth="174.0" promptText="Личный телефон" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="30.0" />
                         <TextField fx:id="passportFieldForChange" layoutX="481.0" layoutY="19.0" prefHeight="38.0" prefWidth="175.0" promptText="Паспорт" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="30.0" />
                         <Button layoutX="437.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#onChangeEmployeeClick" prefHeight="38.0" prefWidth="241.0" text="Изменить" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="562.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="76.0" />
                         <Label layoutX="19.0" layoutY="6.0" text="Выберите поле, измените значения в полях и нажмите &quot;Изменить&quot;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="3.0" />
