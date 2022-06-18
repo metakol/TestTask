@@ -18,15 +18,15 @@
           <TableColumn fx:id="columnSalary" prefWidth="132.0" text="Зарплата" />
         </columns>
       </TableView>
-      <TextField fx:id="searchField" layoutX="40.0" layoutY="74.0" onKeyTyped="#onTypeKeyForSearch" prefHeight="37.0" prefWidth="647.0" promptText="Поиск по должности" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0" />
+      <TextField fx:id="searchField" focusTraversable="false" layoutX="106.0" layoutY="74.0" onKeyTyped="#onTypeKeyForSearch" prefHeight="38.0" prefWidth="554.0" promptText="Поиск по должности" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0" />
       <TabPane layoutX="40.0" layoutY="415.0" prefHeight="136.0" prefWidth="647.0" style="-fx-border-color: #a8a8a8;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
         <tabs>
           <Tab text="Добавление">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="positionForAddField" layoutX="14.0" layoutY="35.0" prefHeight="38.0" prefWidth="265.0" promptText="Должность" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0" />
-                        <TextField fx:id="salaryForAddField" layoutX="288.00000000000006" layoutY="35.0" prefHeight="38.0" prefWidth="151.0" promptText="Зарплата" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="288.00000000000006" AnchorPane.topAnchor="35.0" />
+                        <TextField fx:id="positionFieldForAdd" layoutX="14.0" layoutY="35.0" prefHeight="38.0" prefWidth="265.0" promptText="Должность" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0" />
+                        <TextField fx:id="salaryFieldForAdd" layoutX="288.00000000000006" layoutY="35.0" prefHeight="38.0" prefWidth="151.0" promptText="Зарплата" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="288.00000000000006" AnchorPane.topAnchor="35.0" />
                         <Button layoutX="445.20000000000005" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#onAddPositionClick" prefHeight="38.0" prefWidth="160.0" text="Добавить" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="445.20000000000005" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="35.0" />
                         <Label layoutX="14.0" layoutY="5.0" text="Для добавления заполните поля и нажмите &quot;Добавить&quot;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="5.0" />
                      </children>
@@ -39,8 +39,8 @@
                      <children>
                         <AnchorPane layoutX="38.0" layoutY="-52.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TextField fx:id="positionForChangeField" layoutX="14.0" layoutY="35.0" prefHeight="38.0" prefWidth="265.0" promptText="Должность" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0" />
-                              <TextField fx:id="salaryForChangeField" layoutX="288.0" layoutY="35.0" prefHeight="38.0" prefWidth="151.0" promptText="Зарплата" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="288.0" AnchorPane.topAnchor="35.0" />
+                              <TextField fx:id="positionFieldForChange" layoutX="14.0" layoutY="35.0" prefHeight="38.0" prefWidth="265.0" promptText="Должность" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0" />
+                              <TextField fx:id="salaryFieldForChange" layoutX="288.0" layoutY="35.0" prefHeight="38.0" prefWidth="151.0" promptText="Зарплата" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="288.0" AnchorPane.topAnchor="35.0" />
                               <Button layoutX="445.20000000000005" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#onChangePositionClick" prefHeight="38.0" prefWidth="160.0" text="Изменить" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="445.20000000000005" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="35.0" />
                               <Label layoutX="14.0" layoutY="14.0" text="Выберите поле, измените значения в полях и нажмите &quot;Изменить&quot;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="5.0" />
                            </children>

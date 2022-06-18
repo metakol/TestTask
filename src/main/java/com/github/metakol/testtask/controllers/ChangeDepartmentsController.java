@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,31 +33,31 @@ public class ChangeDepartmentsController implements Initializable {
     @FXML
     private TableColumn<Department, String> columnEmail;
 
-    ObservableList<Department> list = FXCollections.observableArrayList();
+    private Department selectedItem;
+    private ObservableList<Department> list = FXCollections.observableArrayList();
 
     @FXML
     private TextField searchField;
 
     @FXML
-    private TextField departmentNameForAddField;
+    private TextField departmentNameFieldForAdd;
     @FXML
-    private TextField phoneNumberForAddField;
+    private TextField phoneNumberFieldForAdd;
     @FXML
-    private TextField emailForAddField;
+    private TextField emailFieldForAdd;
 
     @FXML
-    private TextField departmentNameForChangeField;
+    private TextField departmentNameFieldForChange;
     @FXML
-    private TextField phoneNumberForChangeField;
+    private TextField phoneNumberFieldForChange;
     @FXML
-    private TextField emailForChangeField;
+    private TextField emailFieldForChange;
 
-    private Department selectedItem;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTable();
-        fillList();
+        fillTable();
     }
 
     private void initTable() {
@@ -69,32 +70,37 @@ public class ChangeDepartmentsController implements Initializable {
         selectionModel.selectedItemProperty().addListener((observableValue, oldItem, item) -> {
             if (list.size() > 0) {
                 selectedItem = item;
-                departmentNameForChangeField.setText(item.getDepartmentName());
-                phoneNumberForChangeField.setText(item.getPhoneNumber());
-                emailForChangeField.setText(item.getEmail());
+                departmentNameFieldForChange.setText(item.getDepartmentName());
+                phoneNumberFieldForChange.setText(item.getPhoneNumber());
+                emailFieldForChange.setText(item.getEmail());
             } else {
                 selectedItem = null;
             }
         });
     }
 
-    private void fillList() {
+    private void fillTable() {
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement()
+             Statement statement = handler.createStatement()
         ) {
-            String query = "SELECT * FROM departments";
+            String query = "SELECT id,department_name,phone_number,email FROM departments";
             try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    list.add(new Department(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4)));
-                }
+                fillListForTable(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void fillListForTable(ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String departmentName = resultSet.getString(2);
+            String phoneNumber = resultSet.getString(3);
+            String email = resultSet.getString(4);
+            list.add(new Department(id, departmentName, phoneNumber, email));
         }
     }
 
@@ -106,17 +112,12 @@ public class ChangeDepartmentsController implements Initializable {
     private void updateList() {
         list.clear();
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement()
+             Statement statement = handler.createStatement()
         ) {
-            String query = "SELECT * FROM departments " +
+            String query = "SELECT id,department_name,phone_number,email FROM departments " +
                     "WHERE department_name LIKE '%" + searchField.getText().trim() + "%'";
             try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    list.add(new Department(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4)));
-                }
+                fillListForTable(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,24 +133,26 @@ public class ChangeDepartmentsController implements Initializable {
 
     @FXML
     void onAddDepartmentClick(MouseEvent event) {
-        if (Fields.fieldsAreNotEmpty(departmentNameForAddField, phoneNumberForAddField, emailForAddField)) {
-            Department department = new Department(departmentNameForAddField.getText().trim(),
-                    phoneNumberForAddField.getText().trim(),
-                    emailForAddField.getText().trim());
+        if (Fields.fieldsAreNotEmpty(departmentNameFieldForAdd, phoneNumberFieldForAdd, emailFieldForAdd)) {
+            Department department = new Department(departmentNameFieldForAdd.getText().trim(),
+                    phoneNumberFieldForAdd.getText().trim(),
+                    emailFieldForAdd.getText().trim());
             addDepartment(department);
-            departmentNameForAddField.clear();
-            phoneNumberForAddField.clear();
-            emailForAddField.clear();
+            departmentNameFieldForAdd.clear();
+            phoneNumberFieldForAdd.clear();
+            emailFieldForAdd.clear();
         }
     }
 
     private void addDepartment(Department department) {
+        String query = "INSERT INTO departments (department_name,phone_number,email) VALUES (?,?,?)";
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement();
+             PreparedStatement statement = handler.preparedStatement(query);
         ) {
-            String query = "INSERT INTO departments (department_name,phone_number,email) " +
-                    "VALUES ('" + department.getDepartmentName() + "','" + department.getPhoneNumber() + "','" + department.getEmail() + "')";
-            statement.executeUpdate(query);
+            statement.setString(1, department.getDepartmentName());
+            statement.setString(2, department.getPhoneNumber());
+            statement.setString(3, department.getEmail());
+            statement.executeUpdate();
             updateList();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,25 +163,27 @@ public class ChangeDepartmentsController implements Initializable {
 
     @FXML
     void onChangeDepartmentClick(MouseEvent event) {
-        if (selectedItem != null && Fields.fieldsAreNotEmpty(departmentNameForChangeField, phoneNumberForChangeField, emailForChangeField)) {
-            Department newItem = new Department(departmentNameForChangeField.getText().trim(),
-                    phoneNumberForChangeField.getText().trim(),
-                    emailForChangeField.getText().trim());
+        if (selectedItem != null && Fields.fieldsAreNotEmpty(departmentNameFieldForChange, phoneNumberFieldForChange, emailFieldForChange)) {
+            Department newItem = new Department(departmentNameFieldForChange.getText().trim(),
+                    phoneNumberFieldForChange.getText().trim(),
+                    emailFieldForChange.getText().trim());
             updateDepartment(selectedItem, newItem);
-            departmentNameForChangeField.clear();
-            phoneNumberForChangeField.clear();
-            emailForChangeField.clear();
+            departmentNameFieldForChange.clear();
+            phoneNumberFieldForChange.clear();
+            emailFieldForChange.clear();
         }
     }
 
     private void updateDepartment(Department oldItem, Department newItem) {
+        String query = "UPDATE departments SET department_name=? , phone_number=? , email=? WHERE id=?";
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement();
+             PreparedStatement statement = handler.preparedStatement(query);
         ) {
-            String query = "UPDATE departments SET department_name='" + newItem.getDepartmentName() +
-                    "', phone_number='" + newItem.getPhoneNumber() + "', email='" + newItem.getEmail() +
-                    "' WHERE id=" + oldItem.getID();
-            statement.executeUpdate(query);
+            statement.setString(1, newItem.getDepartmentName());
+            statement.setString(2, newItem.getPhoneNumber());
+            statement.setString(3, newItem.getEmail());
+            statement.setInt(4, oldItem.getID());
+            statement.executeUpdate();
             updateList();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,11 +200,12 @@ public class ChangeDepartmentsController implements Initializable {
     }
 
     private void deleteDepartment(Department item) {
+        String query = "DELETE FROM departments WHERE id=?";
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement();
+             PreparedStatement statement = handler.preparedStatement(query);
         ) {
-            String query = "DELETE FROM departments WHERE id=" + item.getID();
-            statement.executeUpdate(query);
+            statement.setInt(1, item.getID());
+            statement.executeUpdate();
             updateList();
         } catch (SQLException e) {
             e.printStackTrace();

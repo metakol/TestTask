@@ -29,7 +29,11 @@ public class DBHandler implements AutoCloseable {
         }
     }
 
-    public Statement getStatement() throws SQLException {
+    public Statement createStatement() throws SQLException {
         return connection.createStatement();
+    }
+
+    public PreparedStatement preparedStatement(String sql) throws SQLException {
+        return connection.prepareStatement(sql);
     }
 }

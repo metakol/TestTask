@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,27 +31,27 @@ public class ChangePositionsController implements Initializable {
     @FXML
     private TableColumn<Position, Integer> columnSalary;
 
-    ObservableList<Position> list = FXCollections.observableArrayList();
+    private Position selectedItem;
+    private ObservableList<Position> list = FXCollections.observableArrayList();
 
     @FXML
     private TextField searchField;
 
     @FXML
-    private TextField positionForAddField;
+    private TextField positionFieldForAdd;
     @FXML
-    private TextField salaryForAddField;
+    private TextField salaryFieldForAdd;
 
     @FXML
-    private TextField positionForChangeField;
+    private TextField positionFieldForChange;
     @FXML
-    private TextField salaryForChangeField;
+    private TextField salaryFieldForChange;
 
-    private Position selectedItem;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTable();
-        fillList();
+        fillTable();
     }
 
     private void initTable() {
@@ -62,25 +63,21 @@ public class ChangePositionsController implements Initializable {
         selectionModel.selectedItemProperty().addListener((observableValue, oldItem, item) -> {
             if (list.size() > 0) {
                 selectedItem = item;
-                positionForChangeField.setText(item.getPositionName());
-                salaryForChangeField.setText(String.valueOf(item.getSalary()));
+                positionFieldForChange.setText(item.getPositionName());
+                salaryFieldForChange.setText(String.valueOf(item.getSalary()));
             } else {
                 selectedItem = null;
             }
         });
     }
 
-    private void fillList() {
+    private void fillTable() {
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement()
+             Statement statement = handler.createStatement()
         ) {
-            String query = "SELECT * FROM job_positions";
+            String query = "SELECT id,position_name,salary FROM job_positions";
             try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    list.add(new Position(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getInt(3)));
-                }
+                fillListForTable(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,23 +86,29 @@ public class ChangePositionsController implements Initializable {
         }
     }
 
+    private void fillListForTable(ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String positionName = resultSet.getString(2);
+            int salary = resultSet.getInt(3);
+            list.add(new Position(id, positionName, salary));
+        }
+    }
 
     @FXML
     void onTypeKeyForSearch(KeyEvent event) {
-        updateList();
+        updateTable();
     }
 
-    private void updateList() {
+    private void updateTable() {
         list.clear();
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement()
+             Statement statement = handler.createStatement()
         ) {
-            String query = "SELECT * FROM job_positions WHERE position_name LIKE '%" + searchField.getText().trim() + "%'";
+            String query = "SELECT id,position_name,salary FROM job_positions WHERE position_name LIKE '%" + searchField.getText().trim() + "%'";
             try (ResultSet resultSet = statement.executeQuery(query)) {
                 while (resultSet.next()) {
-                    list.add(new Position(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getInt(3)));
+                    fillListForTable(resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -122,22 +125,23 @@ public class ChangePositionsController implements Initializable {
 
     @FXML
     void onAddPositionClick(MouseEvent event) {
-        if (Fields.fieldsAreNotEmpty(positionForAddField, salaryForAddField)) {
-            Position position = new Position(positionForAddField.getText(), Integer.parseInt(salaryForAddField.getText()));
+        if (Fields.fieldsAreNotEmpty(positionFieldForAdd, salaryFieldForAdd)) {
+            Position position = new Position(positionFieldForAdd.getText(), Integer.parseInt(salaryFieldForAdd.getText()));
             addPosition(position);
-            positionForAddField.clear();
-            salaryForAddField.clear();
+            positionFieldForAdd.clear();
+            salaryFieldForAdd.clear();
         }
     }
 
     private void addPosition(Position position) {
+        String query = "INSERT INTO job_positions (position_name,salary) VALUES (?,?)";
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement();
+             PreparedStatement statement = handler.preparedStatement(query);
         ) {
-            String query = "INSERT INTO job_positions (position_name,salary) " +
-                    "VALUES ('" + position.getPositionName() + "','" + position.getSalary() + "')";
-            statement.executeUpdate(query);
-            updateList();
+            statement.setString(1, position.getPositionName());
+            statement.setInt(2, position.getSalary());
+            statement.executeUpdate();
+            updateTable();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -147,22 +151,24 @@ public class ChangePositionsController implements Initializable {
 
     @FXML
     void onChangePositionClick(MouseEvent event) {
-        if (selectedItem != null && Fields.fieldsAreNotEmpty(positionForChangeField, salaryForChangeField)) {
-            Position newItem = new Position(positionForChangeField.getText(), Integer.parseInt(salaryForChangeField.getText()));
+        if (selectedItem != null && Fields.fieldsAreNotEmpty(positionFieldForChange, salaryFieldForChange)) {
+            Position newItem = new Position(positionFieldForChange.getText(), Integer.parseInt(salaryFieldForChange.getText()));
             updatePosition(selectedItem, newItem);
-            positionForChangeField.clear();
-            salaryForChangeField.clear();
+            positionFieldForChange.clear();
+            salaryFieldForChange.clear();
         }
     }
 
     private void updatePosition(Position oldItem, Position newItem) {
+        String query = "UPDATE job_positions SET position_name=?, salary=? WHERE id=?";
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement();
+             PreparedStatement statement = handler.preparedStatement(query);
         ) {
-            String query = "UPDATE job_positions SET position_name='" + newItem.getPositionName() + "', salary=" + newItem.getSalary() +
-                    " WHERE id=" + oldItem.getID();
-            statement.executeUpdate(query);
-            updateList();
+            statement.setString(1, newItem.getPositionName());
+            statement.setInt(2, newItem.getSalary());
+            statement.setInt(3, oldItem.getID());
+            statement.executeUpdate();
+            updateTable();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -178,12 +184,13 @@ public class ChangePositionsController implements Initializable {
     }
 
     private void deletePosition(Position item) {
+        String query = "DELETE FROM job_positions WHERE id=?";
         try (DBHandler handler = new DBHandler();
-             Statement statement = handler.getStatement();
+             PreparedStatement statement = handler.preparedStatement(query);
         ) {
-            String query = "DELETE FROM job_positions WHERE id=" + item.getID();
-            statement.executeUpdate(query);
-            updateList();
+            statement.setInt(1, item.getID());
+            statement.executeUpdate();
+            updateTable();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
