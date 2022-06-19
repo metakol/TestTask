@@ -51,7 +51,7 @@ public class ChangePositionsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTable();
-        fillTable();
+        updateTable();
     }
 
     private void initTable() {
@@ -71,13 +71,17 @@ public class ChangePositionsController implements Initializable {
         });
     }
 
-    private void fillTable() {
+    private void updateTable() {
+        list.clear();
         try (DBHandler handler = new DBHandler();
              Statement statement = handler.createStatement()
         ) {
-            String query = "SELECT id,position_name,salary FROM job_positions";
+            String query = "SELECT id,position_name,salary FROM job_positions " +
+                    "WHERE position_name LIKE '%" + searchField.getText().trim() + "%'";
             try (ResultSet resultSet = statement.executeQuery(query)) {
-                fillListForTable(resultSet);
+                while (resultSet.next()) {
+                    fillListForTable(resultSet);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,23 +104,7 @@ public class ChangePositionsController implements Initializable {
         updateTable();
     }
 
-    private void updateTable() {
-        list.clear();
-        try (DBHandler handler = new DBHandler();
-             Statement statement = handler.createStatement()
-        ) {
-            String query = "SELECT id,position_name,salary FROM job_positions WHERE position_name LIKE '%" + searchField.getText().trim() + "%'";
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    fillListForTable(resultSet);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @FXML
     void onGoBackClick(MouseEvent event) {

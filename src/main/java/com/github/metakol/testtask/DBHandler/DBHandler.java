@@ -3,15 +3,14 @@ package com.github.metakol.testtask.DBHandler;
 import java.sql.*;
 
 public class DBHandler implements AutoCloseable {
-    private static String nameConnection="org.sqlite.JDBC";
-    private static String DBPath="jdbc:sqlite:src/main/resources/com/github/metakol/testtask/db/systemdb.db";
+    private static String nameConnection = "org.sqlite.JDBC";
+    private static String DBPath = "jdbc:sqlite:src/main/resources/com/github/metakol/testtask/db/systemdb.db";
     private Connection connection;
 
-    public DBHandler(){
+    public DBHandler() {
         try {
             Class.forName(nameConnection);
-            connection=DriverManager.getConnection(DBPath);
-            System.out.println("DB open");
+            connection = DriverManager.getConnection(DBPath);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -23,7 +22,6 @@ public class DBHandler implements AutoCloseable {
     public void close() throws Exception {
         try {
             connection.close();
-            System.out.println("DB close");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -57,7 +57,7 @@ public class ChangeDepartmentsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTable();
-        fillTable();
+        updateTable();
     }
 
     private void initTable() {
@@ -79,11 +79,13 @@ public class ChangeDepartmentsController implements Initializable {
         });
     }
 
-    private void fillTable() {
+    private void updateTable() {
+        list.clear();
         try (DBHandler handler = new DBHandler();
              Statement statement = handler.createStatement()
         ) {
-            String query = "SELECT id,department_name,phone_number,email FROM departments";
+            String query = "SELECT id,department_name,phone_number,email FROM departments " +
+                    "WHERE department_name LIKE '%" + searchField.getText().trim() + "%'";
             try (ResultSet resultSet = statement.executeQuery(query)) {
                 fillListForTable(resultSet);
             }
@@ -106,24 +108,7 @@ public class ChangeDepartmentsController implements Initializable {
 
     @FXML
     void onTypeKeyForSearch(KeyEvent event) {
-        updateList();
-    }
-
-    private void updateList() {
-        list.clear();
-        try (DBHandler handler = new DBHandler();
-             Statement statement = handler.createStatement()
-        ) {
-            String query = "SELECT id,department_name,phone_number,email FROM departments " +
-                    "WHERE department_name LIKE '%" + searchField.getText().trim() + "%'";
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                fillListForTable(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        updateTable();
     }
 
     @FXML
@@ -134,9 +119,11 @@ public class ChangeDepartmentsController implements Initializable {
     @FXML
     void onAddDepartmentClick(MouseEvent event) {
         if (Fields.fieldsAreNotEmpty(departmentNameFieldForAdd, phoneNumberFieldForAdd, emailFieldForAdd)) {
-            Department department = new Department(departmentNameFieldForAdd.getText().trim(),
+            Department department = new Department(
+                    departmentNameFieldForAdd.getText().trim(),
                     phoneNumberFieldForAdd.getText().trim(),
-                    emailFieldForAdd.getText().trim());
+                    emailFieldForAdd.getText().trim()
+            );
             addDepartment(department);
             departmentNameFieldForAdd.clear();
             phoneNumberFieldForAdd.clear();
@@ -153,7 +140,7 @@ public class ChangeDepartmentsController implements Initializable {
             statement.setString(2, department.getPhoneNumber());
             statement.setString(3, department.getEmail());
             statement.executeUpdate();
-            updateList();
+            updateTable();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -164,9 +151,11 @@ public class ChangeDepartmentsController implements Initializable {
     @FXML
     void onChangeDepartmentClick(MouseEvent event) {
         if (selectedItem != null && Fields.fieldsAreNotEmpty(departmentNameFieldForChange, phoneNumberFieldForChange, emailFieldForChange)) {
-            Department newItem = new Department(departmentNameFieldForChange.getText().trim(),
+            Department newItem = new Department(
+                    departmentNameFieldForChange.getText().trim(),
                     phoneNumberFieldForChange.getText().trim(),
-                    emailFieldForChange.getText().trim());
+                    emailFieldForChange.getText().trim()
+            );
             updateDepartment(selectedItem, newItem);
             departmentNameFieldForChange.clear();
             phoneNumberFieldForChange.clear();
@@ -184,7 +173,7 @@ public class ChangeDepartmentsController implements Initializable {
             statement.setString(3, newItem.getEmail());
             statement.setInt(4, oldItem.getID());
             statement.executeUpdate();
-            updateList();
+            updateTable();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -206,7 +195,7 @@ public class ChangeDepartmentsController implements Initializable {
         ) {
             statement.setInt(1, item.getID());
             statement.executeUpdate();
-            updateList();
+            updateTable();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
