@@ -15,6 +15,13 @@ public class StaffingTable {
         this.numberPlaces = numberPlaces;
     }
 
+    public StaffingTable(String department, String position, int freePlaces, int numberPlaces) {
+        this.department = department;
+        this.position = position;
+        this.freePlaces = freePlaces;
+        this.numberPlaces = numberPlaces;
+    }
+
     public int getId() {
         return id;
     }

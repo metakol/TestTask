@@ -67,7 +67,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane layoutX="164.0" layoutY="-27.0" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #a8a8a8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="164.0" layoutY="-27.0" prefHeight="60.0" prefWidth="200.0" styleClass="pane-header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button focusTraversable="false" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#onGoBackClick" prefHeight="40.0" prefWidth="100.0" text="Назад" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
@@ -76,7 +76,7 @@
             </Button>
             <Label alignment="CENTER" layoutX="105.0" layoutY="17.0" prefHeight="50.0" prefWidth="527.0" text="Редактирование сотрудников" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="5.0">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </children>

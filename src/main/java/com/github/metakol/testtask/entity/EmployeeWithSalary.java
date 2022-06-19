@@ -1,33 +1,25 @@
 package com.github.metakol.testtask.entity;
 
-public class Employee {
+public class EmployeeWithSalary {
     private int ID;
     private String FIO;
     private String departmentName;
     private String positionName;
-    private String phoneNumber;
-    private String passport;
+    private int salary;
 
-    public Employee(int ID, String FIO, String departmentName, String positionName, String phoneNumber, String passport) {
+    public EmployeeWithSalary(int ID, String FIO, String departmentName, String positionName, int salary) {
         this.ID = ID;
         this.FIO = FIO;
         this.departmentName = departmentName;
         this.positionName = positionName;
-        this.phoneNumber = phoneNumber;
-        this.passport = passport;
+        this.salary = salary;
     }
 
-    public Employee(String FIO, String departmentName, String positionName, String phoneNumber, String passport) {
+    public EmployeeWithSalary(String FIO, String departmentName, String positionName, int salary) {
         this.FIO = FIO;
         this.departmentName = departmentName;
         this.positionName = positionName;
-        this.phoneNumber = phoneNumber;
-        this.passport = passport;
-    }
-
-    public Employee(String FIO, String positionName) {
-        this.FIO = FIO;
-        this.positionName = positionName;
+        this.salary = salary;
     }
 
     public int getID() {
@@ -62,19 +54,11 @@ public class Employee {
         this.positionName = positionName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public int getSalary() {
+        return salary;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getPassport() {
-        return passport;
-    }
-
-    public void setPassport(String passport) {
-        this.passport = passport;
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 }

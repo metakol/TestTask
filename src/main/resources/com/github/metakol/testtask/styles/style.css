@@ -7,3 +7,9 @@
 .button:hover{
 
 }
+.pane-header{
+    -fx-font-size: 24px;
+    -fx-background-color:  #a8a8a8;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #313030;
+}

@@ -26,4 +26,24 @@ public class MainViewController  {
     void goChangeStaffingTableClick(MouseEvent event) {
         Scenes.sceneChange(event, Launch.class.getResource("scenes/change-staffing-table.fxml"));
     }
+
+    @FXML
+    void goDepartmentsInfoClick(MouseEvent event) {
+        Scenes.sceneChange(event, Launch.class.getResource("scenes/info-about-departments.fxml"));
+    }
+
+    @FXML
+    void goEmployeesInfoClick(MouseEvent event) {
+        Scenes.sceneChange(event, Launch.class.getResource("scenes/full-info-about-employees.fxml"));
+    }
+
+    @FXML
+    void goEmployeesSalaryInfoClick(MouseEvent event) {
+        Scenes.sceneChange(event, Launch.class.getResource("scenes/info-about-employees-salary.fxml"));
+    }
+
+    @FXML
+    void goStaffingTableInfoClick(MouseEvent event) {
+        Scenes.sceneChange(event, Launch.class.getResource("scenes/info-about-staffing-table.fxml"));
+    }
 }
