@@ -186,8 +186,6 @@ public class ChangeDepartmentsController implements Initializable {
         if (selectedItem != null) {
             if(!isAlreadyUsed()){
                 deleteDepartment(selectedItem);
-            }else{
-                System.out.println("Удаление невозможно, т.к. отедл используется!");
             }
         }
     }

@@ -166,8 +166,6 @@ public class ChangePositionsController implements Initializable {
         if (selectedItem != null) {
             if(!isAlreadyUsed()){
                 deletePosition(selectedItem);
-            }   else{
-                System.out.println("Удаление невозможно, т.к. должность уже исползуется");
             }
         }
     }
