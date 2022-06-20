@@ -53,8 +53,12 @@ public class ChangeStaffingTableController implements Initializable {
         fillDepartments();
         fillPositionsList();
         fillComboBoxes();
-        departmentsBox.setValue(departmentNames.get(0));
-        positionsBox.setValue(positionNames.get(0));
+        if (departmentNames.size() > 0) {
+            departmentsBox.setValue(departmentNames.get(0));
+        }
+        if (positionNames.size() > 0) {
+            positionsBox.setValue(positionNames.get(0));
+        }
         initTable();
         updateTable();
     }
@@ -149,12 +153,14 @@ public class ChangeStaffingTableController implements Initializable {
 
     @FXML
     void onAddClick(MouseEvent event) {
-        if (isPositionAlreadyExists()) {
-            addPosition();
-        } else {
-            insertPosition();
+        if (positionsBox.getValue() != null && departmentsBox.getValue() != null) {
+            if (isPositionAlreadyExists()) {
+                addPosition();
+            } else {
+                insertPosition();
+            }
+            updateTable();
         }
-        updateTable();
     }
 
     private boolean isPositionAlreadyExists() {

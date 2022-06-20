@@ -56,8 +56,9 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="25.0" layoutY="39.0" text="Для удаления выберите поле и нажмите &quot;Удалить&quot;" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="35.0" />
+                        <Label layoutX="25.0" layoutY="25.0" text="Для удаления выберите поле и нажмите &quot;Удалить&quot;" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
                         <Button layoutX="433.00000000000006" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#onDeleteDepartmentClick" prefHeight="37.0" prefWidth="171.0" text="Удалить" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="433.00000000000006" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0" />
+                        <Label layoutX="25.0" layoutY="60.0" text="*Если отдел не удаляется, занчит он уже используется" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="60.0" />
                      </children>
                   </AnchorPane>
               </content>

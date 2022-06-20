@@ -11,15 +11,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="620.0" minWidth="700.0" prefHeight="650.0" prefWidth="773.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.metakol.testtask.controllers.ChangeEmployeesController">
+<AnchorPane minHeight="620.0" minWidth="700.0" prefHeight="650.0" prefWidth="910.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.metakol.testtask.controllers.ChangeEmployeesController">
    <children>
       <TableView fx:id="table" focusTraversable="false" layoutX="40.0" layoutY="130.0" prefHeight="262.0" prefWidth="520.0" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="140.0">
         <columns>
-          <TableColumn fx:id="columnFIO" prefWidth="178.39997100830078" text="ФИО" />
-            <TableColumn fx:id="columnDepartment" prefWidth="96.80010986328125" text="Отдел" />
-            <TableColumn fx:id="columnPosition" prefWidth="149.5999755859375" text="Позиция" />
-            <TableColumn fx:id="columnPersonalPhone" prefWidth="148.00003051757812" text="Личный телефон" />
-          <TableColumn fx:id="columnPassport" prefWidth="118.5999755859375" text="Паспорт" />
+          <TableColumn fx:id="columnFIO" prefWidth="240.80002975463867" text="ФИО" />
+            <TableColumn fx:id="columnDepartment" prefWidth="131.199951171875" text="Отдел" />
+            <TableColumn fx:id="columnPosition" prefWidth="175.20001220703125" text="Позиция" />
+            <TableColumn fx:id="columnPersonalPhone" prefWidth="155.99993896484375" text="Личный телефон" />
+          <TableColumn fx:id="columnPassport" prefWidth="127.99993896484375" text="Паспорт" />
         </columns>
       </TableView>
       <TextField fx:id="searchField" focusTraversable="false" layoutX="40.0" layoutY="74.0" onKeyTyped="#onTypeKeyForSearch" prefHeight="37.0" prefWidth="647.0" promptText="Поиск по ФИО" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0" />

@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="620.0" minWidth="700.0" prefHeight="620.0" prefWidth="700.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.metakol.testtask.controllers.ChangePositionsController">
+<AnchorPane minHeight="620.0" minWidth="700.0" prefHeight="620.0" prefWidth="789.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.metakol.testtask.controllers.ChangePositionsController">
    <children>
       <TableView fx:id="table" focusTraversable="false" layoutX="40.0" layoutY="130.0" prefHeight="262.0" prefWidth="520.0" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="140.0">
         <columns>
-          <TableColumn fx:id="columnPositionName" prefWidth="245.0" text="Должность" />
-          <TableColumn fx:id="columnSalary" prefWidth="132.0" text="Зарплата" />
+          <TableColumn fx:id="columnPositionName" prefWidth="280.0000228881836" text="Должность" />
+          <TableColumn fx:id="columnSalary" prefWidth="156.79998779296875" text="Зарплата" />
         </columns>
       </TableView>
       <TextField fx:id="searchField" focusTraversable="false" layoutX="106.0" layoutY="74.0" onKeyTyped="#onTypeKeyForSearch" prefHeight="38.0" prefWidth="554.0" promptText="Поиск по должности" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0" />
@@ -53,8 +53,9 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="25.0" layoutY="39.0" text="Для удаления выберите поле и нажмите &quot;Удалить&quot;" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="35.0" />
-                        <Button layoutX="433.00000000000006" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#onDeletePositionClick" prefHeight="37.0" prefWidth="171.0" text="Удалить" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="433.00000000000006" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0" />
+                        <Label layoutX="25.0" layoutY="25.0" text="Для удаления выберите поле и нажмите &quot;Удалить&quot;" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
+                        <Button layoutX="433.00000000000006" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#onDeletePositionClick" prefHeight="37.0" prefWidth="171.0" text="Удалить" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="480.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0" />
+                        <Label layoutX="35.0" layoutY="54.0" text="*Если должность не удаляется, занчит он уже используется" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="60.0" />
                      </children>
                   </AnchorPane>
               </content>

@@ -79,9 +79,7 @@ public class ChangePositionsController implements Initializable {
             String query = "SELECT id,position_name,salary FROM job_positions " +
                     "WHERE position_name LIKE '%" + searchField.getText().trim() + "%'";
             try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    fillListForTable(resultSet);
-                }
+                fillListForTable(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,7 +101,6 @@ public class ChangePositionsController implements Initializable {
     void onTypeKeyForSearch(KeyEvent event) {
         updateTable();
     }
-
 
 
     @FXML
@@ -167,8 +164,31 @@ public class ChangePositionsController implements Initializable {
     @FXML
     void onDeletePositionClick(MouseEvent event) {
         if (selectedItem != null) {
-            deletePosition(selectedItem);
+            if(!isAlreadyUsed()){
+                deletePosition(selectedItem);
+            }   else{
+                System.out.println("Удаление невозможно, т.к. должность уже исползуется");
+            }
         }
+    }
+
+    private boolean isAlreadyUsed() {
+        String sql = "SELECT COUNT(id_position) FROM staffing_table WHERE id_position=" + selectedItem.getID();
+        try (DBHandler handler = new DBHandler();
+             Statement statement = handler.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)
+        ) {
+            if (resultSet.next()) {
+                if(resultSet.getInt(1)==0){
+                    return false;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     private void deletePosition(Position item) {

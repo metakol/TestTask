@@ -184,8 +184,31 @@ public class ChangeDepartmentsController implements Initializable {
     @FXML
     void onDeleteDepartmentClick(MouseEvent event) {
         if (selectedItem != null) {
-            deleteDepartment(selectedItem);
+            if(!isAlreadyUsed()){
+                deleteDepartment(selectedItem);
+            }else{
+                System.out.println("Удаление невозможно, т.к. отедл используется!");
+            }
         }
+    }
+
+    private boolean isAlreadyUsed() {
+        String sql = "SELECT COUNT(id_department) FROM staffing_table WHERE id_department=" + selectedItem.getID();
+        try (DBHandler handler = new DBHandler();
+             Statement statement = handler.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)
+        ) {
+            if (resultSet.next()) {
+                if(resultSet.getInt(1)==0){
+                    return false;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     private void deleteDepartment(Department item) {
