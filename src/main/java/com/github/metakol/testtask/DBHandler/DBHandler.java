@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class DBHandler implements AutoCloseable {
     private static String nameConnection = "org.firebirdsql.jdbc.FBDriver";
-    private static String DBPath = "jdbc:firebirdsql://localhost:3050/D:\\GIT\\TestTask\\src\\main\\resources\\com\\github\\metakol\\testtask\\db\\systemdb.FDB";
+    private static String DBPath = "jdbc:firebirdsql://localhost:3050/D:/GIT/TestTask/src/main/resources/com/github/metakol/testtask/db/systemdb.FDB";
     private Connection connection;
 
     public DBHandler() {
